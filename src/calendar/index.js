@@ -45,6 +45,8 @@ class Calendar extends Component {
     firstDay: PropTypes.number,
     /** Date marking style [simple/period/multi-dot/multi-period]. Default = 'simple' */
     markingType: PropTypes.string,
+    /** Highlight day if any dots on that day Default = false */
+    highlight: PropTypes.bool,
     /** Hide month navigation arrows. Default = false */
     hideArrows: PropTypes.bool,
     /** Display loading indicator. Default = false */
@@ -190,6 +192,7 @@ class Calendar extends Component {
           onLongPress={this.longPressDay}
           date={dateAsObject}
           marking={this.getDateMarking(day)}
+          highlight={this.props.highlight}
         >
           {date}
         </DayComp>

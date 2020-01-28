@@ -63,6 +63,9 @@ class Day extends Component {
     const marking = this.props.marking || {};
     const dot = this.renderDots(marking);
 
+    if (marking.dots) {
+      containerStyle.push(this.style.highlighted);
+    }
     if (marking.selected) {
       containerStyle.push(this.style.selected);
       textStyle.push(this.style.selectedText);

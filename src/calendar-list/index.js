@@ -107,6 +107,7 @@ class CalendarList extends Component {
     this.getItemLayout = this.getItemLayout.bind(this);
     this.onLayout = this.onLayout.bind(this);
   }
+  
 
   onLayout(event) {
     if (this.props.onLayout) {
