@@ -64,7 +64,6 @@ class CalendarListAgenda extends Component {
       />
       <ReservationList
         reservations={this.renderReservations(currentDay, items)}
-        onDayChange={() => {}}
         selectedDay={parseDate(currentDay) || XDate(true)}
         {...rest}
       />
