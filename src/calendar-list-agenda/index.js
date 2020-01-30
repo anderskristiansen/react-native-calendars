@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import XDate from 'xdate';
 import PropTypes from 'prop-types';
 
-import {parseDate} from '../interface';
+import {parseDate, xdateToData} from '../interface';
 import CalendarList from '../calendar-list';
 import ReservationList from '../agenda/reservation-list';
 
@@ -22,6 +22,9 @@ class CalendarListAgenda extends Component {
   constructor(props) {
     super(props);
     
+    this.state = {
+      current: parseDate(props.currentDay) || XDate()
+    };
     this.renderReservations = this.renderReservations.bind(this)
   }
 
@@ -42,28 +45,40 @@ class CalendarListAgenda extends Component {
   
 
   render() {
-    const { loadItems, currentDay, items, ...rest } = this.props
+    const { loadItems, currentDay, items, onVisibleMonthsChange,...rest } = this.props
     return (
       <>
         <CalendarList
+        current={this.state.current}
         horizontal
         pagingEnabled
-        onMonthChange={loadItems}
-        onVisibleMonthsChange={months => {
-          if (months && months.length === 1) {
-            loadItems(months[0]);
-          }
-          if (months && months.length > 1) {
-            loadItems(months[1]);
-          }
-        }}
         // displayLoadingIndicator
         hideArrows={false}
         onRefresh={() => {}} // Refreshcontrol handles this
+        onPressArrowRight={() => {
+          this.setState({
+            current: parseDate(this.state.current).clone().setDate(1).addMonths(1)
+          })
+        }}
+        onPressArrowLeft={() => {
+          this.setState({
+            current: parseDate(this.state.current).clone().setDate(1).addMonths(-1)
+          })
+        }}
+        onVisibleMonthsChange={(months) => {
+          if(months && months.length===1){
+            this.state = {
+              current: parseDate(months[0])
+            };
+          }
+          
+          onVisibleMonthsChange(months)
+        }}
         {...rest}
       />
       <ReservationList
         reservations={this.renderReservations(currentDay, items)}
+        onDayChange={() => {}}
         selectedDay={parseDate(currentDay) || XDate(true)}
         {...rest}
       />
