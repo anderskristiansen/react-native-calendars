@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import XDate from 'xdate';
 import PropTypes from 'prop-types';
 
-import {parseDate, xdateToData} from '../interface';
+import {parseDate} from '../interface';
 import CalendarList from '../calendar-list';
 import ReservationList from '../agenda/reservation-list';
 
@@ -45,7 +45,7 @@ class CalendarListAgenda extends Component {
   
 
   render() {
-    const { loadItems, currentDay, items, onVisibleMonthsChange,...rest } = this.props
+    const { loadItems, currentDay, items, ...rest } = this.props
     return (
       <>
         <CalendarList
@@ -55,29 +55,11 @@ class CalendarListAgenda extends Component {
         // displayLoadingIndicator
         hideArrows={false}
         onRefresh={() => {}} // Refreshcontrol handles this
-        onPressArrowRight={() => {
-          this.setState({
-            current: parseDate(this.state.current).clone().setDate(1).addMonths(1)
-          })
+        onPressArrowRight={(callback) => {
+          callback()
         }}
-        onPressArrowLeft={() => {
-          this.setState({
-            current: parseDate(this.state.current).clone().setDate(1).addMonths(-1)
-          })
-        }}
-        onVisibleMonthsChange={(months) => {
-          if(months && months.length===1){
-            this.state = {
-              current: parseDate(months[0]).setDate(1)
-            }
-          }
-          if(months && months.length>1){
-            this.state = {
-              current: parseDate(months[1]).setDate(1)
-            }
-          }
-          
-          onVisibleMonthsChange(months)
+        onPressArrowLeft={(callback) => {
+          callback()
         }}
         {...rest}
       />

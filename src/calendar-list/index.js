@@ -152,14 +152,6 @@ class CalendarList extends Component {
     const nextCurrent = parseDate(props.current);
     
     if (nextCurrent && current && nextCurrent.getTime() !== current.getTime()) {
-      if (this.props.onVisibleMonthsChange) {
-        this.props.onVisibleMonthsChange([xdateToData(nextCurrent)]);
-      }
-  
-      this.setState({
-        rows: newrows,
-        currentMonth: nextCurrent
-      });
       this.scrollToMonth(nextCurrent);
     }
 
@@ -223,6 +215,7 @@ class CalendarList extends Component {
       <CalendarListItem
         scrollToMonth={this.scrollToMonth.bind(this)}
         item={item} 
+        addMonth={this.addMonth}
         calendarHeight={this.props.calendarHeight} 
         calendarWidth={this.props.horizontal ? this.props.calendarWidth : undefined} 
         {...this.props} 

@@ -86,7 +86,9 @@ class Calendar extends Component {
     /** Style passed to the header */
     headerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     /** Provide aria-level for calendar heading for proper accessibility when used with web (react-native-web) */
-    webAriaLevel: PropTypes.number
+    webAriaLevel: PropTypes.number,
+    addMonth: PropTypes.func,
+
   };
 
   constructor(props) {
@@ -97,6 +99,7 @@ class Calendar extends Component {
     this.state = {
       currentMonth: props.current ? parseDate(props.current) : XDate()
     };
+
 
     this.updateMonth = this.updateMonth.bind(this);
     this.addMonth = this.addMonth.bind(this);
@@ -274,7 +277,7 @@ class Calendar extends Component {
           theme={this.props.theme}
           hideArrows={this.props.hideArrows}
           month={this.state.currentMonth}
-          addMonth={this.addMonth}
+          addMonth={this.props.addMonth ? this.props.addMonth : this.addMonth}
           showIndicator={indicator}
           firstDay={this.props.firstDay}
           renderArrow={this.props.renderArrow}
