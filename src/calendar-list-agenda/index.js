@@ -23,7 +23,7 @@ class CalendarListAgenda extends Component {
     super(props);
     
     this.state = {
-      current: parseDate(props.currentDay) || XDate()
+      current: parseDate(props.currentDay) || XDate(),
     };
     this.renderReservations = this.renderReservations.bind(this)
   }
@@ -68,8 +68,13 @@ class CalendarListAgenda extends Component {
         onVisibleMonthsChange={(months) => {
           if(months && months.length===1){
             this.state = {
-              current: parseDate(months[0])
-            };
+              current: parseDate(months[0]).setDate(1)
+            }
+          }
+          if(months && months.length>1){
+            this.state = {
+              current: parseDate(months[1]).setDate(1)
+            }
           }
           
           onVisibleMonthsChange(months)
