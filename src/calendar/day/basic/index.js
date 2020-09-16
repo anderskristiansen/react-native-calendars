@@ -64,6 +64,11 @@ class Day extends Component {
       dot = (<View style={dotStyle}/>);
     }
 
+    if (marking.weekNumber) {
+      containerStyle.push(this.style.weekNumberContainer);
+      textStyle.push(this.style.weekNumberText);
+    }
+
     if (marking.selected) {
       containerStyle.push(this.style.selected);
       if (marking.selectedColor) {

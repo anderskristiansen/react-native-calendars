@@ -11,6 +11,11 @@ export default function styleConstructor(theme={}) {
       height: 32,
       alignItems: 'center'
     },
+    weekNumberContainer: {},
+    weekNumberText: {
+      color: appStyle.weekNumberColor,
+      fontSize: 12
+    },
     text: {
       marginTop: Platform.OS === 'android' ? 4 : 6,
       fontSize: appStyle.textDayFontSize,
